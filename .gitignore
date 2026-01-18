@@ -1,0 +1,20 @@
+# Never upload datasets
+*.csv
+*.fasta
+*.cif
+*.pdb
+*.zip
+
+MSA/
+PDB_RNA/
+data/
+datasets/
+
+# Outputs
+outputs/
+__pycache__/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
