@@ -1,0 +1,32 @@
+model:
+  embedding_dim: 256          # Conservative but research-standard
+  pair_dim: 128               # Must remain small due to O(N^2) scaling
+  num_layers: 6               # Shallow for stability and runtime feasibility
+  num_heads: 8
+  dropout: 0.1
+
+msa:
+  use_msa: true
+  max_msa_depth: 128          # Cap depth to control noise + memory
+
+structure_module:
+  hidden_dim: 128
+  num_layers: 4
+  equivariant: false          # Will become true when EGNN is added (Phase 2.3)
+
+training:
+  max_length: 512             # Cropping window for training
+  min_length: 10              # Matches dataset filter
+  chunk_long_sequences: true
+  cropping_strategy: random   # Will later add: centered, structured, curriculum
+  mask_missing_labels: true   # Must respect missing coordinates
+
+loss:
+  use_kabsch_alignment: true  # Coordinates are rotation invariant
+  use_distance_loss: true
+  coordinate_loss_weight: 1.0
+  distance_loss_weight: 0.3
+
+runtime:
+  device: auto                # cpu/cuda
+  precision: float32
